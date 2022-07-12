@@ -9,8 +9,11 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdate_01);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdate_02);
+
 UENUM(BlueprintType)
 enum class ActivateTypes : uint8 {
+	NOT_SET		UMETA(DisplayName = "NotSet"),
 	Act_TypeA	UMETA(DisplayName = "TypeA"),
 	Act_TypeB	UMETA(DisplayName = "TypeB"),
 	Act_TypeC	UMETA(DisplayName = "TypeC"),
@@ -32,9 +35,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Path Director")
 		void Activate_TypeA();
 
-	// impact event 
+	// action event 
 	UPROPERTY(BlueprintAssignable, Category = "Path Director")
-		FUpdate_01 OnImpact;
+		FUpdate_01 Action_TypeA;	
+	
+	UPROPERTY(BlueprintAssignable, Category = "Path Director")
+		FUpdate_02 CheckPoint_TypeA;
 
 
 	void ReverseAct();
@@ -49,23 +55,27 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	
+	ActivateTypes ACType = ActivateTypes::NOT_SET;	
 	UStaticMeshComponent* MeshObject;
-	FVector MeshObject_defaultLocation;
-	FVector Target_defaultLocation;
-	bool OnRevers = false;
-	bool OnTransition = false;
-	float timerDelay = .1f;
+	FVector MeshObject_defaultLocation = FVector(FVector::ZeroVector);
+	FVector Target = FVector(FVector::ZeroVector);
+	FVector Target_defaultLocation = FVector(FVector::ZeroVector);
+	
+	bool InRevers = false;
+	bool InTransition = false;
+	bool Action_TypeA_Allowed = true;
+	float TransitionDelay = .1f;
+	float TransitionSpeed = 500.f;
 
-	float Speed = 500.f;
+	bool Active = false;
+	bool DestinationReached = false;
+
 
 	FVector temp_01 = FVector(FVector::ZeroVector);
 	float temp_02 = 0.f;
 
-	bool Active = false;
-	bool impact = false;
-	FVector Target = FVector(FVector::ZeroVector);
 
-	void Move();
+	void Move(); // move function
+	void CheckTypeA(); // proccess of type A 
 		
 };
