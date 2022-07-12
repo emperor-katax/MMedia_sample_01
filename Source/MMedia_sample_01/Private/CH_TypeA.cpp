@@ -1,4 +1,5 @@
 #include "CH_TypeA.h"
+#include "Math/UnrealMathUtility.h"
 
 ACH_TypeA::ACH_TypeA(){
 	PrimaryActorTick.bCanEverTick = true;
@@ -7,6 +8,8 @@ ACH_TypeA::ACH_TypeA(){
 
 void ACH_TypeA::BeginPlay(){
 	Super::BeginPlay();	
+
+
 }
 
 
