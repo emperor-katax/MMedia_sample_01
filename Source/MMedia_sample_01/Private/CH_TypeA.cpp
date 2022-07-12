@@ -28,6 +28,11 @@ void ACH_TypeA::DetectItem_01() {
 	Server_Detect_01();
 }
 
+void ACH_TypeA::ChangeName_01(FString name) {
+	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> Server_SetName_01_Implementation called from BP"));
+	Server_SetName_01(name);
+}
+
 // final function of replication of an "Action" in network which runs on each client
 void ACH_TypeA::checkFunction() {
 	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> checkFunction --- "));
@@ -44,8 +49,12 @@ void ACH_TypeA::ActivateDetection_Implementation() {
 	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> ActivateDetection fires from BP"));	
 }
 
+/*
+void ACH_TypeA::ActivateSetName_Implementation() {
+	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> ActivateSetname fires from BP"));
+}*/
 
-
+// detect object
 
 // SERVER     /////////////////////////////////////////
 
@@ -68,3 +77,28 @@ void ACH_TypeA::Multi_Detect_01_Implementation() {
 	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> Multi_Detect_01_Implementation ---  Multicat"));
 	checkFunction();
 }
+
+// set name //////////////////////////////////////////////////////////////////////////
+
+// SERVER     /////////////////////////////////////////
+
+bool ACH_TypeA::Server_SetName_01_Validate(const FString& name) {
+	return true;
+}
+
+void ACH_TypeA::Server_SetName_01_Implementation(const FString& name) {
+	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> Server_SetName_01_Implementation called from SERVER"));
+	Multi_SetName_01(name);
+}
+
+// MULTICAST /////////////////////////////////////////
+
+bool ACH_TypeA::Multi_SetName_01_Validate(const FString& name) {
+	return true;
+}
+
+void ACH_TypeA::Multi_SetName_01_Implementation(const FString& name) {
+	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> Multi_SetName_01_Implementation ---  Multicat"));
+	ActivateSetName(name);
+}
+/**/

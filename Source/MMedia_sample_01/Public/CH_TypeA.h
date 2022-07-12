@@ -18,13 +18,19 @@ public:
 	UFUNCTION(BlueprintNativeEvent, Category = "Actor_BP Events") // event in BP + function in C++ 
 		void ActivateDetection();
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "Actor_BP Events") // event in BP + function in C++ 
+		void ActivateSetName(const FString& name);
+
 	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")
 		void DetectItem_01();
+
+	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")
+		void ChangeName_01(FString name);
 
 protected:
 	virtual void BeginPlay() override;
 
-	// all 3 functions is essential
+	// detect object
 	UFUNCTION(Server, Reliable, WithValidation)
 		void Server_Detect_01();
 		bool Server_Detect_01_Validate();
@@ -35,7 +41,19 @@ protected:
 		void Multi_Detect_01();
 		bool Multi_Detect_01_Validate();
 		void Multi_Detect_01_Implementation();
+	
+	// set name
+	UFUNCTION(Server, Reliable, WithValidation)
+		void Server_SetName_01(const FString& name);
+		bool Server_SetName_01_Validate(const FString& name);
+		void Server_SetName_01_Implementation(const FString& name);
 
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+		void Multi_SetName_01(const FString& name);
+		bool Multi_SetName_01_Validate(const FString& name);
+		void Multi_SetName_01_Implementation(const FString& name);
+	/*	*/
 public:	
 	virtual void Tick(float DeltaTime) override;
 	// Called to bind functionality to input - default in character
