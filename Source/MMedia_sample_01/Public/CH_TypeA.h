@@ -14,18 +14,20 @@ class MMEDIA_SAMPLE_01_API ACH_TypeA : public ACharacter
 public:
 	ACH_TypeA();
 
+	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")
+		void DetectItem_01();	
+	
 	//UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Actor_BP Events") <<-- no event in blueprint, only function in BP and C++
 	UFUNCTION(BlueprintNativeEvent, Category = "Actor_BP Events") // event in BP + function in C++ 
 		void ActivateDetection();
 
+
+
+	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")
+		void ChangeName_01(FString name, int ID);
+
 	UFUNCTION(BlueprintImplementableEvent, Category = "Actor_BP Events") // event in BP + function in C++ 
-		void ActivateSetName(const FString& name);
-
-	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")
-		void DetectItem_01();
-
-	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")
-		void ChangeName_01(FString name);
+		void ActivateSetName(const FString& name, int ID);
 
 protected:
 	virtual void BeginPlay() override;
@@ -43,16 +45,14 @@ protected:
 		void Multi_Detect_01_Implementation();
 	
 	// set name
-	UFUNCTION(Server, Reliable, WithValidation)
-		void Server_SetName_01(const FString& name);
-		bool Server_SetName_01_Validate(const FString& name);
-		void Server_SetName_01_Implementation(const FString& name);
+	UFUNCTION(Server, Reliable)
+		void Server_SetName_01(const FString& name, int ID);
+		void Server_SetName_01_Implementation(const FString& name, int ID);
 
 
-	UFUNCTION(NetMulticast, Reliable, WithValidation)
-		void Multi_SetName_01(const FString& name);
-		bool Multi_SetName_01_Validate(const FString& name);
-		void Multi_SetName_01_Implementation(const FString& name);
+	UFUNCTION(NetMulticast, Reliable)
+		void Multi_SetName_01(const FString& name, int ID);
+		void Multi_SetName_01_Implementation(const FString& name, int ID);
 	/*	*/
 public:	
 	virtual void Tick(float DeltaTime) override;

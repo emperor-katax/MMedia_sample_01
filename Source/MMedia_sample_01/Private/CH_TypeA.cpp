@@ -28,9 +28,9 @@ void ACH_TypeA::DetectItem_01() {
 	Server_Detect_01();
 }
 
-void ACH_TypeA::ChangeName_01(FString name) {
+void ACH_TypeA::ChangeName_01(FString name, int ID) {
 	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> Server_SetName_01_Implementation called from BP"));
-	Server_SetName_01(name);
+	Server_SetName_01(name, ID);
 }
 
 // final function of replication of an "Action" in network which runs on each client
@@ -82,23 +82,19 @@ void ACH_TypeA::Multi_Detect_01_Implementation() {
 
 // SERVER     /////////////////////////////////////////
 
-bool ACH_TypeA::Server_SetName_01_Validate(const FString& name) {
-	return true;
-}
 
-void ACH_TypeA::Server_SetName_01_Implementation(const FString& name) {
+
+void ACH_TypeA::Server_SetName_01_Implementation(const FString& name, int ID) {
 	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> Server_SetName_01_Implementation called from SERVER"));
-	Multi_SetName_01(name);
+	Multi_SetName_01(name, ID);
 }
 
 // MULTICAST /////////////////////////////////////////
 
-bool ACH_TypeA::Multi_SetName_01_Validate(const FString& name) {
-	return true;
-}
 
-void ACH_TypeA::Multi_SetName_01_Implementation(const FString& name) {
+
+void ACH_TypeA::Multi_SetName_01_Implementation(const FString& name, int ID) {
 	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> Multi_SetName_01_Implementation ---  Multicat"));
-	ActivateSetName(name);
+	ActivateSetName(name, ID);
 }
 /**/
