@@ -14,10 +14,10 @@ public:
 	ACH_TypeA();
 
 	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")	// run detect funtion from  BP
-		void DetectItem_01();	
+		void ActionHandler_01();	
 	
 	UFUNCTION(BlueprintNativeEvent, Category = "Actor_BP Events")	// client/server detect funtion
-		void ActivateDetection();
+		void ActivateAction();
 
 	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")			// run change name function from BP 
 		void ChangeName_01(FString name, int ID);

@@ -18,7 +18,7 @@ void ACH_TypeA::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 // //////////////////////////////////////////////////////////////////////////////////////
-void ACH_TypeA::DetectItem_01() { // check action 
+void ACH_TypeA::ActionHandler_01() { // check action 
 	Server_Detect_01();
 }
 
@@ -27,10 +27,10 @@ void ACH_TypeA::ChangeName_01(FString name, int ID) { // check values
 }
 
 void ACH_TypeA::checkFunction() { // support action 
-	ActivateDetection(); // blueprint event call
+	ActivateAction(); // blueprint event call
 }
 
-void ACH_TypeA::ActivateDetection_Implementation() {
+void ACH_TypeA::ActivateAction_Implementation() {
 	UE_LOG(LogTemp, Warning, TEXT("    ----ACH_TypeA-->> ActivateDetection"));	
 }
 

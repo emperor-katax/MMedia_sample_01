@@ -19,7 +19,7 @@ enum class ActivateTypes : uint8 {
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class MMEDIA_SAMPLE_01_API UTRHelper : public UActorComponent{
+class MMEDIA_SAMPLE_01_API UTRHelper : public UActorComponent {
 	GENERATED_BODY()
 
 public:	
