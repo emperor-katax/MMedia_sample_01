@@ -6,9 +6,8 @@
 #include "Engine/TargetPoint.h"
 #include "TRHelper.generated.h"
 
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdate_01);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdate_02);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdate_01); // delegate event handler
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdate_02); // delegate event handler
 
 UENUM(BlueprintType) // interaction type
 enum class ActivateTypes : uint8 {
@@ -28,7 +27,7 @@ public:
 
 	// set up varibale and move object
 	UFUNCTION(BlueprintCallable, Category = "Path Director")
-		void SetupValues(ActivateTypes Type, UStaticMeshComponent* comp, FVector move_target, float move_Speed, float move_revDelay = .8f);
+		void initValues(ActivateTypes Type, UStaticMeshComponent* comp, FVector move_target, float move_Speed, float move_revDelay = .8f);
 	
 	UFUNCTION(BlueprintCallable, Category = "Path Director")
 		void Activate_TypeA();

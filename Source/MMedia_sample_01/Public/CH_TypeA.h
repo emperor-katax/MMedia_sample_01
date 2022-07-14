@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -13,14 +11,14 @@ class MMEDIA_SAMPLE_01_API ACH_TypeA : public ACharacter{
 public:
 	ACH_TypeA();
 
-	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")	// run detect funtion from  BP
+	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")	// recive action from BP
 		void ActionHandler_01();	
 	
-	UFUNCTION(BlueprintNativeEvent, Category = "Actor_BP Events")	// client/server detect funtion
-		void ActivateAction();
-
-	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")			// run change name function from BP 
+	UFUNCTION(BlueprintCallable, Category = "Actor_BP Functions")	// recive action with argumrnts from BP
 		void ChangeName_01(FString name, int ID);
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Actor_BP Events")	// client/server action funtion
+		void ActivateAction();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Actor_BP Events")	// client/server set name function
 		void ActivateSetName(const FString& name, int ID);
@@ -28,18 +26,18 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	// detect object
+	// act replication 
 	UFUNCTION(Server, Reliable, WithValidation)
-		void Server_Detect_01();
-		bool Server_Detect_01_Validate();
-		void Server_Detect_01_Implementation();
+		void Server_Act_01();
+		bool Server_Act_01_Validate();
+		void Server_Act_01_Implementation();
 
 	UFUNCTION(NetMulticast, Reliable, WithValidation)
-		void Multi_Detect_01();
-		bool Multi_Detect_01_Validate();
-		void Multi_Detect_01_Implementation();
+		void Multi_Act_01();
+		bool Multi_Act_Validate();
+		void Multi_Act_Implementation();
 	
-	// set name
+	// set name replication
 	UFUNCTION(Server, Reliable)
 		void Server_SetName_01(const FString& name, int ID);
 		void Server_SetName_01_Implementation(const FString& name, int ID);
@@ -52,8 +50,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-private:
-	void checkFunction(); // support detect funtion on each player
 
 
 };
